@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос | GitHub Pages</title>
+    <style>
+        :root {
+            --primary-color: #4f6df5;
+            --secondary-color: #f5f7ff;
+            --accent-color: #ff7e5f;
+            --text-color: #333;
+            --light-text: #666;
+            --max-width: 800px;
+        }
+        
+        body {
+            background-color: #f9faff;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .survey-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(79, 109, 245, 0.1);
+            padding: 2rem;
+        }
+        
+        .survey-frame {
+            width: 100%;
+            min-height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Пройдите наш опрос</h1>
+            <p>Ваше мнение поможет нам стать лучше!</p>
+        </header>
+        
+        <div class="survey-container">
+            <iframe class="survey-frame" 
+                    src="https://forms.yandex.ru/u/67fee01c49363945cc3a8e2f/?iframe=1" 
+                    frameborder="0" 
+                    name="ya-form-67fee01c49363945cc3a8e2f">
+            </iframe>
+            <script src="https://forms.yandex.ru/_static/embed.js"></script>
+        </div>
+    </div>
+</body>
+</html>
