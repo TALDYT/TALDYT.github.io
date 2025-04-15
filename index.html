@@ -116,14 +116,14 @@
         }
 
         // Если данные загружаются из файла:
-        // fetch('2025-04-15_Obrashchenie_k_Pravleniiu.json')
-        //     .then(response => response.json())
-        //     .then(data => displayAppeals(data))
-        //     .catch(error => {
-        //         console.error('Ошибка загрузки данных:', error);
-        //         document.getElementById('appeals-container').innerHTML = 
-        //             '<div class="no-results">Ошибка загрузки данных</div>';
-        //     });
+         fetch('2025-04-15_Obrashchenie_k_Pravleniiu.json')
+             .then(response => response.json())
+             .then(data => displayAppeals(data))
+             .catch(error => {
+                 console.error('Ошибка загрузки данных:', error);
+                 document.getElementById('appeals-container').innerHTML = 
+                     '<div class="no-results">Ошибка загрузки данных</div>';
+             });
 
         // Для примера используем встроенные данные
         displayAppeals(jsonData);
