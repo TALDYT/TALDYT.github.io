@@ -3,71 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Опрос | GitHub Pages</title>
+    <title>Результаты обращений</title>
     <style>
-        :root {
-            --primary-color: #4f6df5;
-            --secondary-color: #f5f7ff;
-            --accent-color: #ff7e5f;
-            --text-color: #333;
-            --light-text: #666;
-            --max-width: 800px;
-        }
-        
         body {
-            background-color: #f9faff;
-            color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
         }
-        
         .container {
-            max-width: var(--max-width);
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .survey-container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(79, 109, 245, 0.1);
-            padding: 2rem;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .survey-frame {
-            width: 100%;
-            min-height: 500px;
-            border: none;
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .appeal {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .appeal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .appeal-id {
+            color: #7f8c8d;
+        }
+        .appeal-date {
+            color: #3498db;
+        }
+        .appeal-name {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .appeal-text {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+        .no-results {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Пройдите наш опрос</h1>
-            <p>Ваше мнение поможет нам стать лучше!</p>
-        </header>
-        
-        <div class="survey-container">
-            <iframe class="survey-frame" 
-                    src="https://forms.yandex.ru/u/67fee01c49363945cc3a8e2f/?iframe=1" 
-                    frameborder="0" 
-                    name="ya-form-67fee01c49363945cc3a8e2f">
-            </iframe>
-            <script src="https://forms.yandex.ru/_static/embed.js"></script>
+        <h1>Обращения в правление</h1>
+        <div id="appeals-container">
+            <!-- Сюда будут загружаться обращения -->
+            <div class="no-results">Загрузка данных...</div>
         </div>
     </div>
+
+    <script>
+        // Ваши данные JSON (можно заменить на fetch к реальному файлу)
+        const jsonData = [
+            [["ID", "2036324643"], ["Время создания", "2025-04-16 01:54:05"], ["Имя (опционально)", "Володимир Зеленский"], ["Текст Вашего обращения", "хто я"], ["Присоединить файл, если необходимо:", ""]]
+        ];
+
+        function displayAppeals(data) {
+            const container = document.getElementById('appeals-container');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="no-results">Нет данных об обращениях</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            data.forEach(appealData => {
+                // Преобразуем массив в объект для удобства
+                const appeal = {};
+                appealData.forEach(item => {
+                    appeal[item[0]] = item[1];
+                });
+
+                const appealElement = document.createElement('div');
+                appealElement.className = 'appeal';
+                
+                appealElement.innerHTML = `
+                    <div class="appeal-header">
+                        <span class="appeal-id">ID: ${appeal['ID']}</span>
+                        <span class="appeal-date">${appeal['Время создания']}</span>
+                    </div>
+                    ${appeal['Имя (опционально)'] ? `<div class="appeal-name">${appeal['Имя (опционально)']}</div>` : ''}
+                    <div class="appeal-text">${appeal['Текст Вашего обращения']}</div>
+                    ${appeal['Присоединить файл, если необходимо:'] ? `<div class="appeal-file">Файл: ${appeal['Присоединить файл, если необходимо:']}</div>` : ''}
+                `;
+
+                container.appendChild(appealElement);
+            });
+        }
+
+        // Если данные загружаются из файла:
+        // fetch('2025-04-15_Obrashchenie_k_Pravleniiu.json')
+        //     .then(response => response.json())
+        //     .then(data => displayAppeals(data))
+        //     .catch(error => {
+        //         console.error('Ошибка загрузки данных:', error);
+        //         document.getElementById('appeals-container').innerHTML = 
+        //             '<div class="no-results">Ошибка загрузки данных</div>';
+        //     });
+
+        // Для примера используем встроенные данные
+        displayAppeals(jsonData);
+    </script>
 </body>
 </html>
